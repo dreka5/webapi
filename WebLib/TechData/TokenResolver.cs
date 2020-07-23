@@ -86,7 +86,7 @@ namespace WebLib.TechData
             public const string AUDIENCE = "http://192.168.0.199:50000/";
             const string key = "veryverysekretsecretkey!123";
             public const int LIFETIME = 1;
-            public static SymmetricSecurityKey GetSymmetricSecurityKey() => new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
+            public static SymmetricSecurityKey GetSymmetricSecurityKey() => new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         }
     }
 }

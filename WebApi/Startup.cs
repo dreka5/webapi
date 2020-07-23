@@ -14,6 +14,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.EntityFrameworkCore;
+using WebLib;
+using WebLib.TechData;
+
 namespace WebApi
 {
     public class Startup
@@ -40,10 +43,10 @@ namespace WebApi
                     });
             });
             AuthAdd(services);
-            services.AddSingleton<WebLib.TechData.IWebApiConfig, WebLib.TechData.WebApiConfig>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            
+            //это можно и вконфиг вынести
+            services.AddSingleton<IRemoteDataProvider>(new RemoteDataProvider() { API= "http://45.141.101.66:2080/api/v1.0/" });
             services.AddDbContext<WebLib.DB.Catalog.CatalogContext>( option=> option.UseNpgsql(connection));
 
 
@@ -52,6 +55,7 @@ namespace WebApi
     
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

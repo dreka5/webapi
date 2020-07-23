@@ -13,6 +13,11 @@ namespace WebLib.DB.Catalog
         /// </summary>
         public DbSet<Employe> Employe { get; set; }
 
+        /// <summary>
+        /// фирмы
+        /// </summary>
+        public DbSet<Firm> Firm { get; set; }
+
         public CatalogContext()
         {
             Database.EnsureCreated();

@@ -17,12 +17,10 @@ namespace WebApi.Middleware
     /// </summary>
     public class MiddlewareErrorCatcher
     {
-        private readonly RequestDelegate next;
+        private readonly RequestDelegate Next;
 
-        public MiddlewareErrorCatcher(RequestDelegate next)
-        {
-            this.next = next;
-        }
+        public MiddlewareErrorCatcher(RequestDelegate next) => Next = next;
+        
         /// <summary>
         /// Отправить ошибку во фронт
         /// </summary>
@@ -31,20 +29,16 @@ namespace WebApi.Middleware
             var response = context.Response;
             var request = context.Request;
             var callStack = exception.StackTrace.ToString();
+           
 
-            var query = new StringBuilder();
-            var headers = new StringBuilder();
-            foreach (var q in request.Headers) headers.Append(q);
-            foreach (var q in request.Query)   query.Append(q);   /* site.com/query  */
-
-            var path = request.Path + "/" + query;
+            var path = request.Path + "/" + request.Query.Join() ;
             var requestBodyData = await ReadBody(context);
 
             var jsonData = new
             {
                 localIp = context.Connection.LocalIpAddress.ToString(),
                 remoteIp = context.Connection.RemoteIpAddress.ToString(),
-                headers = headers.ToString(),
+                headers = request.Headers.JoinRN(),
                 callStack,
                 host = request.Host
             };
@@ -100,7 +94,7 @@ namespace WebApi.Middleware
             context.Request.EnableBuffering();
             try
             {
-                await next(context);
+                await Next(context);
             }
             catch (ValidationException validException)
             {

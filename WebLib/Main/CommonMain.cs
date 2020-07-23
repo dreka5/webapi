@@ -21,6 +21,13 @@ namespace WebLib
             return  new EmployeEnity(db);
         }
 
+        protected FirmEntity FirmEntity()
+        {
+            var db = ServiceProvider.GetService<CatalogContext>();
+            return new FirmEntity(db);
+        }
+
+        protected T GetService<T>()=> this.ServiceProvider.GetService<T>();
         public IServiceProvider ServiceProvider { get; set; }
         public ClaimsPrincipal User { get; set; }
 

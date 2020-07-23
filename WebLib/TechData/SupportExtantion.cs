@@ -9,6 +9,31 @@ namespace WebLib.TechData
 {
     public static class SupportExtantion
     {
+
+        /// <summary>
+        /// Объединение в строки
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static string JoinRN<T>(this IEnumerable<T> array) => Join(array, "\r\n");
+        /// <summary>
+        /// Объединение в строку с разделителем
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        public static string Join<T>(this IEnumerable<T> array,string symbol="")
+        {
+            var sb = new StringBuilder();
+            foreach (var q in array)
+            {
+                if (q == null) continue;
+                sb.Append(q.ToString()+symbol);
+            }
+            return sb.ToString();
+        }
         /// <summary>
         /// получение ID пользователя
         /// </summary>
@@ -56,5 +81,8 @@ namespace WebLib.TechData
                 return 0;
             }
         }
+
+
+
     }
 }

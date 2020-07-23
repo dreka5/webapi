@@ -18,8 +18,14 @@ namespace WebApi
         
         protected WebLib.Employe Employe()
         {
-            var U = new WebLib.Employe() { User = User, ServiceProvider= HttpContext.RequestServices };
-            return U;
+            var E = new WebLib.Employe() { User = User, ServiceProvider= HttpContext.RequestServices };
+            return E;
+        }
+
+        protected WebLib.Firm Firm()
+        {
+            var F = new WebLib.Firm() { User = User, ServiceProvider = HttpContext.RequestServices };
+            return F;
         }
     }
 }

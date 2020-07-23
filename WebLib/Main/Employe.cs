@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using WebLib.DB.Catalog;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using System.Net.Http;
+using Newtonsoft.Json;
+using WebLib.TechData;
+
 namespace WebLib
 {
     /// <summary>
@@ -28,7 +32,24 @@ namespace WebLib
 
         public async Task<List<EmployeData>> EmployeListGet(EmployeFilter data)
         {
-            return await EmployeEnity().ListGet(data);
+            // TODO -> запустить в паралель 2 авейта
+            var firmName = await GetService<IRemoteDataProvider>().GetFirm();
+            var workers = await EmployeEnity().ListGet(data);
+
+            if (firmName == null || firmName.Length == 0) return workers; 
+            foreach(var w in workers)
+            {
+                var firm=firmName.Where(x => x.Fid == w.fid).FirstOrDefault();
+                if (firm != null)
+                    w.firmName = firm.Name;
+            }
+            return workers;
+        }
+
+        public async Task<CreatedResultData> EmployeUpdate(EmployeUpdateData data)
+        {
+            return await EmployeEnity().Update(data);
         }
     }
+    
 }

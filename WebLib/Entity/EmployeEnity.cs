@@ -22,7 +22,7 @@ namespace WebLib.Entity
             using (var db = DBContext)
             {
                 var list = from em in db.Employe
-                           orderby em.LastName, em.Name
+                           orderby em.SurName, em.Name
                            select new EmployeData
                            {
                                name = em.Name,
@@ -31,6 +31,7 @@ namespace WebLib.Entity
                                id = em.EmployeId,
                                lastName = em.LastName,
                                surName = em.SurName,
+                                fid=em.fid 
                            };
                 if (filter.surName != null)
                     list = list.Where(x => x.surName.ToLower().Contains(filter.surName.ToLower()));
@@ -80,7 +81,21 @@ namespace WebLib.Entity
                 await db.SaveChangesAsync();
                 return new CreatedResultData() { createdId = employe.EmployeId };
             }
-
+        }
+        public async Task<CreatedResultData> Update(EmployeUpdateData updateData)
+        {
+            using (var db = DBContext)
+            {
+                var employe = db.Employe.Where(x => x.EmployeId == updateData.id).FirstOrDefault();
+                //employe.Address = data.address;
+                employe.BirthDay = updateData.birthDay;
+                employe.SurName = updateData.surName;
+                employe.Name = updateData.name;
+                employe.LastName = updateData.lastName;
+                employe.fid = updateData.fid;
+                await db.SaveChangesAsync();
+                return new CreatedResultData() { createdId=updateData.id };
+            }
         }
     }
 }

@@ -17,4 +17,8 @@ public partial interface IEmploye
     /// список сотрудников
     /// </summary>
     Task<List<EmployeData>> EmployeListGet(EmployeFilter data);
+    /// <summary>
+    /// список сотрудников
+    /// </summary>
+    Task<CreatedResultData> EmployeUpdate(EmployeUpdateData data);
 }
