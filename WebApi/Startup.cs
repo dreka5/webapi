@@ -17,6 +17,9 @@ using Microsoft.EntityFrameworkCore;
 using WebLib;
 using WebLib.TechData;
 
+
+
+
 namespace WebApi
 {
     public class Startup
