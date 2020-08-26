@@ -23,3 +23,5 @@ jobs:
       run: dotnet build WebApi --configuration Release --no-restore
     - name: Test
       run: dotnet test WebApi --no-restore --verbosity normal
+    - name: Pack
+      run: dotnet pack webapi
