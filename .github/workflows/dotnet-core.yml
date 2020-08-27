@@ -24,4 +24,4 @@ jobs:
     - name: Test
       run: dotnet test WebApi --no-restore --verbosity normal
     - name: Pack
-      run: dotnet pack WebApi
+      run: dotnet pack We2bApi
