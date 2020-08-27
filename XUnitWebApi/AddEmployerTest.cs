@@ -20,7 +20,9 @@ namespace XUnitWebApi
 {
     public class AddEmployer
     {
+
         //GRANT INSERT, SELECT, UPDATE,DELETE ON TABLE public."Employe" TO gazoil    :)
+        // out of date
         string GAZ = "Host=35.217.25.167;Port=5432;Database=test1;Username=gazoil;Password=thegazoil2020";
         CatalogContext CatalogContextCreate()
         {
