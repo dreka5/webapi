@@ -22,6 +22,6 @@ jobs:
     - name: Build
       run: dotnet build WebApi --configuration Release --no-restore
     - name: Test
-      run: dotnet test WebApi --no-restore --verbosity normal
-    - name: Pack
-      run: dotnet pack We2bApi
+      run: dotnet test WebApi2 --no-restore --verbosity normal
+#    - name: Pack
+#      run: dotnet pack We2bApi
